@@ -6,3 +6,6 @@ scrape_configs:
   - job_name: 'router'
     static_configs:
       - targets: ['router:9091']
+  - job_name: 'tempo'
+    static_configs:
+      - targets: [ 'tempo:3200' ]

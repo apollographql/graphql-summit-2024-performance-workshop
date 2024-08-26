@@ -27,13 +27,13 @@ services:
     depends_on:
       - init
 
-  k6-tracing:
-    image: ghcr.io/grafana/xk6-client-tracing:v0.0.5
-    environment:
-      - ENDPOINT=tempo:4317
-    restart: always
-    depends_on:
-      - tempo
+  # k6-tracing:
+  #   image: ghcr.io/grafana/xk6-client-tracing:v0.0.5
+  #   environment:
+  #     - ENDPOINT=tempo:4317
+  #   restart: always
+  #   depends_on:
+  #     - tempo
 
   prometheus:
     image: prom/prometheus:latest
@@ -54,6 +54,10 @@ services:
     image: grafana/grafana:11.0.0
     volumes:
       - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/main.yaml
+      - ./dashboards:/var/lib/grafana/dashboards
+      - ./grafana-data:/var/lib/grafana
+
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
@@ -61,6 +65,7 @@ services:
       - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor traceQLStreaming metricsSummary
     ports:
       - 3000:3000
+
 
   redis:
     image: redis:7.4
