@@ -54,8 +54,8 @@ services:
     image: grafana/grafana:11.0.0
     volumes:
       - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
-      - ./grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/main.yaml
-      - ./dashboards:/var/lib/grafana/dashboards
+      - ./grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/home.yaml
+      - ./dashboards:/var/lib/grafana-dashboards
       - ./grafana-data:/var/lib/grafana
 
     environment:
