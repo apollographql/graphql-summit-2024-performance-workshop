@@ -138,6 +138,12 @@
                         },
                         "inspect": false
                     },
+                    "links": [
+                        {
+                            "title": "link",
+                            "url": "/d/adw06lw71a41sd/router-dashboard?orgId=1&editPanel=2&var-traceId=${__data.fields[\"traceID\"]}"
+                        }
+                    ],
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
@@ -190,12 +196,58 @@
             ],
             "title": "Traces",
             "type": "table"
+        },
+        {
+            "datasource": {
+                "type": "tempo",
+                "uid": "tempo"
+            },
+            "gridPos": {
+                "h": 23,
+                "w": 24,
+                "x": 0,
+                "y": 16
+            },
+            "id": 3,
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "tempo",
+                        "uid": "tempo"
+                    },
+                    "limit": 20,
+                    "query": "${traceId}",
+                    "queryType": "traceql",
+                    "refId": "A",
+                    "tableType": "traces"
+                }
+            ],
+            "title": "Trace",
+            "type": "traces"
         }
     ],
     "schemaVersion": 39,
     "tags": [],
     "templating": {
-        "list": []
+        "list": [
+            {
+                "current": {
+                    "selected": false,
+                    "text": "413ace5036454dba3ac06cb65990472b",
+                    "value": "413ace5036454dba3ac06cb65990472b"
+                },
+                "hide": 0,
+                "includeAll": false,
+                "label": "Trace ID",
+                "multi": false,
+                "name": "traceId",
+                "options": [],
+                "query": "",
+                "queryValue": "",
+                "skipUrlSync": false,
+                "type": "custom"
+            }
+        ]
     },
     "time": {
         "from": "now-6h",
@@ -206,6 +258,6 @@
     "timezone": "browser",
     "title": "Router dashboard",
     "uid": "adw06lw71a41sd",
-    "version": 10,
+    "version": 15,
     "weekStart": ""
 }
