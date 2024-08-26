@@ -1,0 +1,85 @@
+services:
+  # Tempo runs as user 10001, and docker compose creates the volume as root.
+  # As such, we need to chown the volume in order for Tempo to start correctly.
+  init:
+    image: &tempoImage grafana/tempo:latest
+    user: root
+    entrypoint:
+      - "chown"
+      - "10001:10001"
+      - "/var/tempo"
+    volumes:
+      - ./tempo-data:/var/tempo
+
+  tempo:
+    image: *tempoImage
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml
+      - ./tempo-data:/var/tempo
+    ports:
+      #- "14268:14268"  # jaeger ingest
+      - "3200:3200"   # tempo
+      - "9095:9095" # tempo grpc
+      - "4317:4317"  # otlp grpc
+      - "4318:4318"  # otlp http
+      #- "9411:9411"   # zipkin
+    depends_on:
+      - init
+
+  k6-tracing:
+    image: ghcr.io/grafana/xk6-client-tracing:v0.0.5
+    environment:
+      - ENDPOINT=tempo:4317
+    restart: always
+    depends_on:
+      - tempo
+
+  prometheus:
+    image: prom/prometheus:latest
+    command:
+      - --config.file=/etc/prometheus.yaml
+      - --web.enable-remote-write-receiver
+      - --enable-feature=exemplar-storage
+      - --enable-feature=native-histograms
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus.yaml
+    ports:
+      - 9090:9090
+
+  grafana:
+    depends_on:
+      - prometheus
+      - tempo
+    image: grafana/grafana:11.0.0
+    volumes:
+      - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor traceQLStreaming metricsSummary
+    ports:
+      - 3000:3000
+
+  redis:
+    image: redis:7.4
+    ports:
+      - 6379:6379
+
+  router:
+    image: ghcr.io/apollographql/router:v1.52.0
+    depends_on:
+      - prometheus
+      - tempo
+      - redis
+    ports:
+      - 4000:4000
+
+    command: [ "-c", "/etc/router.yaml", "-s", "/etc/supergraph.graphql", "--log", "info", "--hot-reload" ]
+    volumes:
+      - ./router.yaml:/etc/router.yaml
+      - ./supergraph.graphql:/etc/supergraph.graphql
+    environment:
+      - APOLLO_GRAPH_REF=${APOLLO_GRAPH_REF}
+      - APOLLO_KEY=${APOLLO_KEY}
