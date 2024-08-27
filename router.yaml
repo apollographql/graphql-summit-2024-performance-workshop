@@ -34,6 +34,18 @@ experimental_query_planner_mode: legacy
 #       list_size: 10 
 #       max: 1000 
 
+preview_entity_cache:
+  enabled: true
+
+  # Configure Redis
+  redis:
+    urls: ["redis://redis:6379"]
+    timeout: 5ms # Optional, by default: 2ms
+    ttl: 24h # Optional, by default no expiration
+
+  subgraph:
+    all:
+      enabled: true
 
 
 traffic_shaping:
