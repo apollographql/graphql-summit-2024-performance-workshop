@@ -189,7 +189,8 @@
                                 "value": 80
                             }
                         ]
-                    }
+                    },
+                    "unit": "s"
                 },
                 "overrides": []
             },
@@ -228,6 +229,57 @@
                     "legendFormat": "__auto",
                     "range": true,
                     "refId": "A",
+                    "useBackend": false
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                    },
+                    "disableTextWrap": false,
+                    "editorMode": "builder",
+                    "expr": "histogram_quantile(0.9, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket[$__rate_interval])))",
+                    "fullMetaSearch": false,
+                    "hide": false,
+                    "includeNullMetadata": false,
+                    "instant": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "B",
+                    "useBackend": false
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                    },
+                    "disableTextWrap": false,
+                    "editorMode": "builder",
+                    "expr": "histogram_quantile(0.75, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket[$__rate_interval])))",
+                    "fullMetaSearch": false,
+                    "hide": false,
+                    "includeNullMetadata": false,
+                    "instant": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "C",
+                    "useBackend": false
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                    },
+                    "disableTextWrap": false,
+                    "editorMode": "builder",
+                    "expr": "histogram_quantile(0.5, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket[$__rate_interval])))",
+                    "fullMetaSearch": false,
+                    "hide": false,
+                    "includeNullMetadata": false,
+                    "instant": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "D",
                     "useBackend": false
                 }
             ],
@@ -289,7 +341,8 @@
                                 "value": 80
                             }
                         ]
-                    }
+                    },
+                    "unit": "s"
                 },
                 "overrides": []
             },
@@ -328,6 +381,23 @@
                     "legendFormat": "__auto",
                     "range": true,
                     "refId": "A",
+                    "useBackend": false
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                    },
+                    "disableTextWrap": false,
+                    "editorMode": "builder",
+                    "expr": "histogram_quantile(0.5, sum by(le, subgraph) (rate(apollo_router_http_request_duration_seconds_bucket[$__rate_interval])))",
+                    "fullMetaSearch": false,
+                    "hide": false,
+                    "includeNullMetadata": false,
+                    "instant": false,
+                    "legendFormat": "__auto",
+                    "range": true,
+                    "refId": "B",
                     "useBackend": false
                 }
             ],
@@ -502,7 +572,8 @@
                                 "value": 80
                             }
                         ]
-                    }
+                    },
+                    "unit": "s"
                 },
                 "overrides": []
             },
@@ -730,7 +801,7 @@
                         "h": 8,
                         "w": 24,
                         "x": 0,
-                        "y": 51
+                        "y": 59
                     },
                     "id": 2,
                     "options": {
@@ -799,6 +870,6 @@
     "timezone": "browser",
     "title": "Router dashboard",
     "uid": "adw06lw71a41sd",
-    "version": 29,
+    "version": 32,
     "weekStart": ""
 }
