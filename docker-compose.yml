@@ -51,7 +51,7 @@ services:
     depends_on:
       - prometheus
       - tempo
-    image: grafana/grafana:11.0.0
+    image: grafana/grafana:11.2.0
     volumes:
       - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
       #- ./grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/home.yaml
