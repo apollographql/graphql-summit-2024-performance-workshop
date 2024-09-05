@@ -73,7 +73,7 @@ services:
       - 6379:6379
 
   router:
-    image: ghcr.io/apollographql/router:v1.52.0
+    image: ghcr.io/apollographql/router:v1.53.0
     depends_on:
       - prometheus
       - tempo
