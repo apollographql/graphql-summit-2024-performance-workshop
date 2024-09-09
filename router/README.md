@@ -13,5 +13,5 @@ You can execute queries against the router and see how things change.
 * [Supergraph schema](./supergraph.graphql) - The supergraph schema that the router is using
 
 ### Observability
-* [Metrics and tracing and logs](http://localhost:3000) - Monitor metrics traces and logs via Grafana
+* [Metrics and tracing and logs](http://localhost:3000/d/router/router-dashboard?orgId=1) - Monitor metrics traces and logs via Grafana
 
