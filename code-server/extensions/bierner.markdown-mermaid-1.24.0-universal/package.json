@@ -1,0 +1,127 @@
+{
+	"name": "markdown-mermaid",
+	"version": "1.24.0",
+	"displayName": "Markdown Preview Mermaid Support",
+	"description": "Adds Mermaid diagram and flowchart support to VS Code's builtin markdown preview",
+	"icon": "docs/logo.png",
+	"keywords": [
+		"mermaid",
+		"markdown",
+		"flowchart",
+		"diagram",
+		"preview"
+	],
+	"publisher": "bierner",
+	"license": "MIT",
+	"repository": {
+		"url": "https://github.com/mjbvz/vscode-markdown-mermaid.git"
+	},
+	"bugs": {
+		"url": "https://github.com/mjbvz/vscode-markdown-mermaid/issues"
+	},
+	"engines": {
+		"vscode": "^1.72.0"
+	},
+	"activationEvents": [],
+	"main": "./dist/index.js",
+	"browser": "./dist/web/index.js",
+	"categories": [
+		"Other"
+	],
+	"contributes": {
+		"markdown.previewScripts": [
+			"./dist-preview/index.bundle.js"
+		],
+		"notebookRenderer": [
+			{
+				"id": "bierner.markdown-it.mermaid-extension",
+				"displayName": "Markdown it Mermaid renderer",
+				"entrypoint": {
+					"extends": "vscode.markdown-it-renderer",
+					"path": "./dist-notebook/index.bundle.js"
+				}
+			}
+		],
+		"markdown.markdownItPlugins": true,
+		"configuration": {
+			"title": "Markdown Preview Mermaid Support",
+			"properties": {
+				"markdown-mermaid.lightModeTheme": {
+					"order": 0,
+					"type": "string",
+					"enum": [
+						"base",
+						"forest",
+						"dark",
+						"default",
+						"neutral"
+					],
+					"default": "default",
+					"description": "Default Mermaid theme for light mode."
+				},
+				"markdown-mermaid.darkModeTheme": {
+					"order": 1,
+					"type": "string",
+					"enum": [
+						"base",
+						"forest",
+						"dark",
+						"default",
+						"neutral"
+					],
+					"default": "dark",
+					"description": "Default Mermaid theme for dark mode."
+				},
+				"markdown-mermaid.languages": {
+					"order": 2,
+					"type": "array",
+					"default": [
+						"mermaid"
+					],
+					"description": "Default languages in markdown."
+				}
+			}
+		}
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@babel/core": "^7.15.0",
+		"@types/markdown-it": "^14.1.0",
+		"@types/vscode": "^1.72.0",
+		"@types/vscode-notebook-renderer": "^1.72.0",
+		"babel-loader": "^8.2.2",
+		"css-loader": "^6.7.3",
+		"mermaid": "^11.1.0",
+		"mini-css-extract-plugin": "^2.2.2",
+		"npm-run-all": "^4.1.5",
+		"style-loader": "^3.2.1",
+		"terser-webpack-plugin": "^5.3.6",
+		"ts-loader": "^9.4.2",
+		"typescript": "^5.4.5",
+		"webpack": "^5.94.0",
+		"webpack-cli": "^5.0.1"
+	},
+	"scripts": {
+		"build-preview": "webpack --mode=production --config ./build/markdownPreview.webpack.config.js",
+		"build-notebook": "webpack --mode=production --config ./build/notebook.webpack.config.js",
+		"compile-ext": "webpack --config ./build/webpack.config.js",
+		"watch-ext": "webpack --watch --config ./build/webpack.config.js",
+		"watch-ext-web": "webpack --watch --config ./build/web-extension.webpack.config.js",
+		"package-ext": "webpack --mode production --config ./build/webpack.config.js",
+		"package-ext-web": "webpack --mode production --devtool hidden-source-map --config ./build/web-extension.webpack.config.js",
+		"vscode:prepublish": "npm-run-all package-ext package-ext-web build-preview build-notebook"
+	},
+	"__metadata": {
+		"id": "f8d0ffc4-66bb-4a9c-8149-ef8f043691a1",
+		"publisherId": "f164f116-e2aa-496b-84dc-2451248e8beb",
+		"publisherDisplayName": "bierner",
+		"targetPlatform": "universal",
+		"isApplicationScoped": false,
+		"isPreReleaseVersion": false,
+		"hasPreReleaseVersion": false,
+		"installedTimestamp": 1725612313834,
+		"pinned": false,
+		"preRelease": false,
+		"source": "gallery"
+	}
+}

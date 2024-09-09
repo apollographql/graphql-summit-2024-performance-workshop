@@ -1,0 +1,6 @@
+{
+  "yaml.schemas": {
+    "/etc/router/.router/schema.json": "router.yaml"
+  },
+  "workbench.startupEditor": "readme"
+}
