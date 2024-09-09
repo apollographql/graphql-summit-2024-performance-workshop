@@ -1,1 +1,0 @@
-(self.webpackChunkmarkdown_mermaid=self.webpackChunkmarkdown_mermaid||[]).push([[720],{9720:(e,r,a)=>{a.d(r,{createArchitectureServices:()=>c.S});var c=a(9936);a(9369)}}]);

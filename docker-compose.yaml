@@ -45,15 +45,10 @@ services:
       - "8080:8080"
     environment:
       - VSCODE_PROXY_URI=
-    command:
-      - --disable-telemetry
-      - --extensions-dir
-      - /home/coder/extensions
-      - --ignore-last-opened
-      - /etc/router
+    entrypoint:
+      - "/home/coder/.config/bootstrap.sh"
     volumes:
       - ${PWD}/code-server/.config:/home/coder/.config
-      - ${PWD}/code-server/extensions:/home/coder/extensions:rw
       - ${PWD}/router:/etc/router:rw
   prometheus:
     image: prom/prometheus
