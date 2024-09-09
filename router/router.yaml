@@ -1,0 +1,31 @@
+supergraph:
+  introspection: true
+  listen: 0.0.0.0:4000
+
+telemetry:
+  exporters:
+    logging:
+      stdout:
+        tty_format: json
+        enabled: true
+    tracing:
+      otlp:
+        enabled: true
+        endpoint: tempo:4317
+    metrics:
+      prometheus:
+        enabled: true
+        listen: 0.0.0.0:9090
+        path: /metrics
+
+  instrumentation:
+    spans:
+      mode: spec_compliant
+
+
+override_subgraph_url: 
+  products: http://subgraphs:8080
+  reviews: http://subgraphs:8080
+  accounts: http://subgraphs:8080
+
+     
