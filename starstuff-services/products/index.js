@@ -112,7 +112,7 @@ async function startApolloServer(typeDefs, resolvers) {
   app.use("/", cors(), json(), //limiter,
     // add latency
     (req, res, next) => {
-      setTimeout(next, Math.floor((Math.random() * 10) + 30));
+      setTimeout(next, Math.floor((Math.random() * 1000) + 30));
     },
     expressMiddleware(server));
 

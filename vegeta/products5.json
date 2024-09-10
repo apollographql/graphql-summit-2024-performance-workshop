@@ -1,3 +1,3 @@
 {
-    "query": "query Products5 { topProducts { name reviews { body  author { name } } } }"
+    "query": "query Products5 { topProducts { name inStock reviews { body  author { name } } } }"
 }

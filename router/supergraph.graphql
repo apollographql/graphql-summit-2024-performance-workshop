@@ -24,9 +24,9 @@ scalar join__FieldSet
 
 enum join__Graph {
   ACCOUNTS @join__graph(name: "accounts", url: "http://accounts:4001/graphql")
-  INVENTORY @join__graph(name: "inventory", url: "http://inventory:4004/graphql")
-  PRODUCTS @join__graph(name: "products", url: "http://products:4003/graphql")
   REVIEWS @join__graph(name: "reviews", url: "http://reviews:4002/graphql")
+  PRODUCTS @join__graph(name: "products", url: "http://products:4003/graphql")
+  INVENTORY @join__graph(name: "inventory", url: "http://inventory:4004/graphql")
 }
 
 scalar link__Import

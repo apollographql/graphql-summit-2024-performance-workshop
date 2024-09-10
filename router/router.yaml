@@ -2,9 +2,6 @@ supergraph:
   introspection: true
   listen: 0.0.0.0:4000
   query_planning:
-    warmed_up_queries: 5
-    # experimental_paths_limit: 3000
-    experimental_plans_limit: 10
     cache:
       in_memory:
         limit: 10
@@ -28,63 +25,5 @@ telemetry:
         listen: 0.0.0.0:9090
         path: /metrics
 
-  instrumentation:
-    spans:
-      mode: spec_compliant
-    instruments:
-      cache:
-        apollo.router.operations.entity.cache:
-          attributes:
-            entity.type: true
-            subgraph.name:
-              subgraph_name: true
-            supergraph.operation.name:
-              supergraph_operation_name: string
 
 
-# override_subgraph_url: 
-#   products: http://subgraphs:8080
-#   reviews: http://subgraphs:8080
-#   accounts: http://subgraphs:8080
-
-override_subgraph_url:
-  accounts: http://accounts:4001
-  reviews: http://reviews:4002
-  products: http://products:4003
-  inventory: http://inventory:4004
-
-
-
-
-# preview_demand_control:
-#   enabled: true
-#   mode: measure
-#   strategy:
-#     static_estimated:
-#       list_size: 10 
-#       max: 1000 
-
-preview_entity_cache:
-  enabled: true
-
-  # Configure Redis
-  redis:
-    urls: ["redis://redis:6379"]
-    timeout: 5ms # Optional, by default: 2ms
-    ttl: 24h # Optional, by default no expiration
-
-  subgraph:
-    all:
-      enabled: true
-
-
-traffic_shaping:
-#   all:
-#     experimental_enable_http2: false
-#   subgraphs:
-#     products:
-#       experimental_enable_http2: true
-  router:
-    timeout: 20s
-  all:
-    timeout: 10s

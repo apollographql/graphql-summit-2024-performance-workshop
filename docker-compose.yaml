@@ -157,7 +157,7 @@ services:
       - router
     volumes:
       -  ${PWD}/vegeta:/etc/vegeta
-    command: attack -targets=/etc/vegeta/targets.http -rate=500 -duration=0 -output=/dev/null
+    command: attack -targets=/etc/vegeta/targets.http -rate=1000 -duration=0 -output=/dev/null
 
 volumes:
   tempo-data:
