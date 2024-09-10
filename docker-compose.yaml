@@ -73,6 +73,7 @@ services:
       - --web.enable-remote-write-receiver
     volumes:
       - ${PWD}/prometheus:/etc/prometheus
+    restart: always
   grafana:
     image: grafana/grafana-oss
     ports:
@@ -122,6 +123,7 @@ services:
       - tempo-data:/var/tempo
     depends_on:
       - init-tempo
+    restart: always
   init-loki:
     image: &lokiImage grafana/loki:latest
     user: root
@@ -141,12 +143,14 @@ services:
       - loki-data:/tmp/loki:rw
     depends_on:
       - init-loki
+    restart: always
   promtail:
     image: grafana/promtail:latest
     volumes:
       - ${PWD}/promtail:/etc/promtail
       - router-logs:/var/log/router
     command: -config.file=/etc/promtail/promtail.yaml
+    restart: always
   redis:
     image: redis:7.4
     ports:
@@ -158,6 +162,7 @@ services:
     volumes:
       -  ${PWD}/vegeta:/etc/vegeta
     command: attack -targets=/etc/vegeta/targets.http -rate=1000 -duration=0 -output=/dev/null
+    restart: always
 
 volumes:
   tempo-data:
