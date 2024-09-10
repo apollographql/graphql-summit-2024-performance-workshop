@@ -29,7 +29,7 @@ const typeDefs = parse(`#graphql
 
 const resolvers = {
   Product: {
-    __resolveReference(object,_,info) {
+    __resolveReference(object, _, info) {
       info.cacheControl.setCacheHint({ maxAge: 60 });
 
       return {
@@ -76,7 +76,12 @@ async function startApolloServer(typeDefs, resolvers) {
   });
 
   await server.start();
-  app.use("/", cors(), json(), limiter, expressMiddleware(server));
+  app.use("/", cors(), json(), limiter,
+    // add latency
+    (req, res, next) => {
+      setTimeout(next, Math.floor((Math.random() * 10) + 50));
+    },
+    expressMiddleware(server));
 
   // Modified server startup
   const port = process.env.PORT || 4004;

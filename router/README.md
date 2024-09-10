@@ -15,3 +15,5 @@ You can execute queries against the router and see how things change.
 ### Observability
 * [Metrics and tracing and logs](http://localhost:3000/d/router/router-dashboard?orgId=1) - Monitor metrics traces and logs via Grafana
 
+
+join the studio org: https://studio.apollographql.com/org/graphql-summit-performance-workshop/invite/033655ae-f17a-4a2b-b36a-5d0c81e0cc0b

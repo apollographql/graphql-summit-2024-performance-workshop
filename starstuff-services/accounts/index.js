@@ -52,13 +52,13 @@ const users = [
 const resolvers = {
   Query: {
     me(parent, args, contextValue, info) {
-      info.cacheControl.setCacheHint({maxAge: 60, scope: 'PRIVATE' });
+      info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
       return users[0];
     },
     recommendedProducts(parent, args, contextValue, info) {
       info.cacheControl.setCacheHint({ maxAge: 10, scope: 'PRIVATE' });
 
-      let products = [{ upc: "1"}, { upc: "2"}, { upc: "3"}, { upc: "4"}].sort(() => Math.random() - Math.random()).slice(0, 2);
+      let products = [{ upc: "1" }, { upc: "2" }, { upc: "3" }, { upc: "4" }].sort(() => Math.random() - Math.random()).slice(0, 2);
       return products;
     }
   },
@@ -93,7 +93,13 @@ async function startApolloServer(typeDefs, resolvers) {
   });
 
   await server.start();
-  app.use("/", cors(), json(), limiter, expressMiddleware(server));
+
+  app.use("/", cors(), json(), limiter,
+    // add latency
+    (req, res, next) => {
+      setTimeout(next, Math.floor((Math.random() * 10) + 40));
+    },
+    expressMiddleware(server));
 
   // Modified server startup
   const port = process.env.PORT || 4001;

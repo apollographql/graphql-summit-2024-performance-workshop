@@ -70,7 +70,7 @@ const resolvers = {
     },
   },
   Query: {
-    topProducts(parent, args, contextValue, info)  {
+    topProducts(parent, args, contextValue, info) {
       info.cacheControl.setCacheHint({ maxAge: 60 });
 
       return products.slice(0, args.first);
@@ -109,7 +109,12 @@ async function startApolloServer(typeDefs, resolvers) {
   });
 
   await server.start();
-  app.use("/", cors(), json(), limiter, expressMiddleware(server));
+  app.use("/", cors(), json(), limiter,
+    // add latency
+    (req, res, next) => {
+      setTimeout(next, Math.floor((Math.random() * 10) + 30));
+    },
+    expressMiddleware(server));
 
   // Modified server startup
   const port = process.env.PORT || 4003;
