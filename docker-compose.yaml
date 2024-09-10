@@ -13,8 +13,8 @@ services:
     image: ghcr.io/apollographql/router:v1.53.0
     environment:
       # Note that APOLLO_KEY and APOLLO_GRAPH_REF will be rotated.
-      - APOLLO_KEY=service:starstuff:f2b0DHv1d-qP4U8A8QUuxA
-      - APOLLO_GRAPH_REF=starstuff@current
+      - APOLLO_KEY=service:workshop-g34n8cr:VevTcL33CrNX1cl_X_9VxQ
+      - APOLLO_GRAPH_REF=workshop-g34n8cr@current
     entrypoint:
       - "/etc/router/.router/bootstrap.sh"
     ports:
@@ -22,12 +22,26 @@ services:
     volumes:
       - ${PWD}/router:/etc/router
       - router-logs:/var/log/router
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
     labels:
       - dev.dozzle.name=router
       - dev.dozzle.group=apollo
       - loggable
     depends_on:
       - router-init
+      - redis
+      - tempo
+  accounts:
+    build: ./starstuff-services/accounts
+  inventory:
+    build: ./starstuff-services/inventory
+  products:
+    build: ./starstuff-services/products
+  reviews:
+    build: ./starstuff-services/reviews
   subgraphs:
     image: alpine:latest
     entrypoint:
@@ -133,6 +147,17 @@ services:
       - ${PWD}/promtail:/etc/promtail
       - router-logs:/var/log/router
     command: -config.file=/etc/promtail/promtail.yaml
+  redis:
+    image: redis:7.4
+    ports:
+      - 6379:6379
+  vegeta:
+    image: jauderho/vegeta
+    depends_on:
+      - router
+    volumes:
+      -  ${PWD}/vegeta:/etc/vegeta
+    command: attack -targets=/etc/vegeta/targets.http -rate=500 -duration=0 -output=/dev/null
 
 volumes:
   tempo-data:
