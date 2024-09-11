@@ -1,175 +1,174 @@
-POST http://router:4000/
+POST http://localhost:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/reviews.json
+@./vegeta/reviews.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/products.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/large.json
 
 POST http://router:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/products.json
+@./vegeta/recommended.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/reviews1.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/products1.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/large1.json
 
 POST http://router:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/large.json
+@./vegeta/recommended1.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/reviews2.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/products2.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/large2.json
 
 POST http://router:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/recommended.json
+@./vegeta/recommended2.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/reviews3.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/products3.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/large3.json
 
 POST http://router:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/reviews1.json
+@./vegeta/recommended3.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/reviews4.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/products4.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/large4.json
 
 POST http://router:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/products1.json
+@./vegeta/recommended4.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/reviews5.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/products5.json
 
 POST http://router:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/large1.json
+@./vegeta/recommended5.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/reviews6.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/products6.json
 
 POST http://router:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/recommended1.json
+@./vegeta/recommended6.json
 
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/reviews7.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/products7.json
 
 POST http://router:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/reviews2.json
+@./vegeta/recommended7.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/reviews8.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/products8.json
 
 POST http://router:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/products2.json
+@./vegeta/recommended8.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/reviews9.json
+
+POST http://localhost:4000/
+Accept: application/json
+Content-type: application/json
+@./vegeta/products9.json
 
 POST http://router:4000/
 Accept: application/json
 Content-type: application/json
-@/etc/vegeta/large2.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/recommended2.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/reviews3.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/products3.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/large3.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/recommended3.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/reviews4.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/products4.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/large4.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/recommended4.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/reviews5.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/products5.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/recommended5.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/reviews6.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/products6.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/recommended6.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/reviews7.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/products7.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/recommended7.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/reviews8.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/products8.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/recommended8.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/reviews9.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/products9.json
-
-POST http://router:4000/
-Accept: application/json
-Content-type: application/json
-@/etc/vegeta/recommended9.json
+@./vegeta/recommended9.json
