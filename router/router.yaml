@@ -6,6 +6,12 @@ supergraph:
       in_memory:
         limit: 10
 
+sandbox:
+  enabled: true
+homepage:
+  enabled: false
+
+
 include_subgraph_errors:
   all: true
 plugins:
