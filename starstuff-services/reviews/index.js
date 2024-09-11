@@ -124,7 +124,7 @@ async function startApolloServer(typeDefs, resolvers) {
   });
 
   app.use(cors());
-  app.use(limiter);
+  //app.use(limiter);
 
   const httpServer = http.createServer(app);
 
