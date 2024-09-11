@@ -1,13 +1,13 @@
 supergraph:
   introspection: true
   listen: 0.0.0.0:4000
-  query_planning:
-    cache:
-      in_memory:
-        limit: 10
-      redis:
-        urls: ["redis://redis:6379",]
-        timeout: 1s
+
+include_subgraph_errors:
+  all: true
+plugins:
+  experimental.expose_query_plan: true
+health_check:
+  enabled: true
 
 telemetry:
   exporters:
