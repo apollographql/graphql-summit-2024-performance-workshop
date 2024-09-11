@@ -1,6 +1,10 @@
 supergraph:
   introspection: true
   listen: 0.0.0.0:4000
+  query_planning:
+    cache:
+      in_memory:
+        limit: 10
 
 include_subgraph_errors:
   all: true
