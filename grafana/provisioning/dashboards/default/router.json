@@ -257,6 +257,7 @@
     },
     {
       "datasource": {
+        "default": false,
         "type": "prometheus",
         "uid": "prometheus"
       },
@@ -343,12 +344,12 @@
             "uid": "prometheus"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "histogram_quantile(0.95, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket[$__rate_interval])))",
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.5, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket{subgraph=\"\"}[$__rate_interval])))",
           "fullMetaSearch": false,
           "includeNullMetadata": false,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "p50",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -359,13 +360,13 @@
             "uid": "prometheus"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "histogram_quantile(0.9, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket[$__rate_interval])))",
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.75, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket{subgraph=\"\"}[$__rate_interval])))",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": false,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "p75",
           "range": true,
           "refId": "B",
           "useBackend": false
@@ -376,13 +377,13 @@
             "uid": "prometheus"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "histogram_quantile(0.75, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket[$__rate_interval])))",
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.9, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket{subgraph=\"\"}[$__rate_interval])))",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": false,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "p90",
           "range": true,
           "refId": "C",
           "useBackend": false
@@ -393,15 +394,32 @@
             "uid": "prometheus"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "histogram_quantile(0.5, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket[$__rate_interval])))",
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.95, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket{subgraph=\"\"}[$__rate_interval])))",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": false,
           "instant": false,
-          "legendFormat": "__auto",
+          "legendFormat": "p95",
           "range": true,
           "refId": "D",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.99, sum by(le) (rate(apollo_router_http_request_duration_seconds_bucket{subgraph=\"\"}[$__rate_interval])))",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": false,
+          "instant": false,
+          "legendFormat": "p99",
+          "range": true,
+          "refId": "E",
           "useBackend": false
         }
       ],
@@ -2062,6 +2080,6 @@
   "timezone": "browser",
   "title": "Router dashboard",
   "uid": "router",
-  "version": 17,
+  "version": 19,
   "weekStart": ""
 }
