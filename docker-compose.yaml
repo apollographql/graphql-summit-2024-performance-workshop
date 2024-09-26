@@ -1,7 +1,7 @@
 name: performance-workshop
 services:
   router-init:
-    image: &routerImage ghcr.io/apollographql/router:v1.54.0
+    image: &routerImage ghcr.io/apollographql/router:v1.55.0
     user: root
     entrypoint:
       - "chown"
@@ -10,7 +10,7 @@ services:
     volumes:
       - router-logs:/var/log/router
   router:
-    image: ghcr.io/apollographql/router:v1.54.0
+    image: ghcr.io/apollographql/router:v1.55.0
     environment:
       # Note that APOLLO_KEY and APOLLO_GRAPH_REF will be rotated.
       - APOLLO_KEY=service:workshop-g34n8cr:VevTcL33CrNX1cl_X_9VxQ
