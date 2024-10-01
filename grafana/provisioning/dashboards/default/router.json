@@ -1131,7 +1131,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1300,7 +1301,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1469,7 +1471,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1650,7 +1653,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1776,7 +1780,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2561,6 +2566,7 @@
       "type": "table"
     }
   ],
+  "refresh": "auto",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -2592,6 +2598,6 @@
   "timezone": "browser",
   "title": "Router dashboard",
   "uid": "router",
-  "version": 4,
+  "version": 6,
   "weekStart": ""
 }
