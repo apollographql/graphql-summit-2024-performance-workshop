@@ -36,12 +36,20 @@ services:
       - tempo
   accounts:
     build: ./starstuff-services/accounts
+    # ports:
+    #   - 4001:4001
   inventory:
     build: ./starstuff-services/inventory
+    # ports:
+    #   - 4004:4004
   products:
     build: ./starstuff-services/products
+    # ports:
+    #   - 4003:4003
   reviews:
     build: ./starstuff-services/reviews
+    # ports:
+    #   - 4002:4002
   subgraphs:
     image: alpine:latest
     entrypoint:
@@ -66,8 +74,8 @@ services:
       - ${PWD}/router:/etc/router:rw
   prometheus:
     image: prom/prometheus
-    ports:
-      - "9090:9090"
+    # ports:
+    #   - "9090:9090"
     command:
       - --config.file=/etc/prometheus/prometheus.yaml
       - --web.enable-remote-write-receiver
@@ -116,8 +124,8 @@ services:
   tempo:
     image: *tempoImage
     command: [ "-config.file=/etc/tempo/tempo.yaml" ]
-    ports:
-      - 3200:3200
+    # ports:
+    #   - 3200:3200
     volumes:
       - ${PWD}/tempo:/etc/tempo
       - tempo-data:/var/tempo
@@ -153,15 +161,15 @@ services:
     restart: always
   redis:
     image: redis:7.4
-    ports:
-      - 6379:6379
+    # ports:
+    #   - 6379:6379
   vegeta:
     image: jauderho/vegeta
     depends_on:
       - router
     volumes:
       -  ${PWD}/vegeta:/etc/vegeta
-    command: attack -targets=/etc/vegeta/targets.http -rate=1000 -timeout 2s -duration=0 -output=/dev/null
+    command: attack -targets=/etc/vegeta/targets.http -rate=1000 -timeout 10s -duration=0 -output=/dev/null
     # restart: always
 
 
