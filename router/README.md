@@ -14,31 +14,9 @@ You can execute queries against the router and see how things change.
 
 ### Observability
 * [Metrics and tracing and logs](http://localhost:3000/d/router/router-dashboard?orgId=1) - Monitor metrics traces and logs via Grafana
-* [studio organization](https://studio.apollographql.com/org/graphql-summit-performance-workshop/invite/033655ae-f17a-4a2b-b36a-5d0c81e0cc0b)
+* [studio organization](https://studio.apollographql.com/org/graphql-summit-performance-workshop/invite/2c884896-5157-44e6-89d3-7395a7eb1049)
 
 ## Step 1: gathering data
-
-## Step 1.1: my telemetry is very sick
-
-* reducing the sampling rate
-=> getting a more manageable
-
-```yaml
-telemetry:
-  exporters:
-    logging:
-      stdout:
-        tty_format: json
-        format: json
-        rate_limit:
-          capacity: 1
-          interval: 3s
-    tracing:
-      common:
-        sampler: 0.1
-```
-
-## Step 1.2 what to look for
 
 look for logs when the router is overloaded
 
@@ -54,7 +32,7 @@ look for correlations between metrics
 ```yaml
 traffic_shaping:
   router:
-    timeout: 5s
+    timeout: 100ms
 ```
 
 Step 2.2: rate limiting
@@ -82,10 +60,18 @@ traffic_shaping:
       capacity: 500
       interval: 1s
   all:
-   timeout: 1s
-   global_rate_limit:
-     capacity: 100
+    timeout: 1s
+    global_rate_limit:
+     capacity: 400
      interval: 1s
+  subgraphs:
+    products:
+      timeout: 200ms
+    accounts:
+      global_rate_limit:
+         capacity: 200
+         interval: 1s
+
 ```
 
 # did we stabilize the situation?
@@ -110,7 +96,7 @@ traffic_shaping:
   all:
     timeout: 1s
     global_rate_limit:
-      capacity: 100
+      capacity: 400
       interval: 1s
   subgraphs:
     reviews:
@@ -131,7 +117,8 @@ traffic_shaping:
     global_rate_limit:
       capacity: 100
       interval: 1s
-    deduplicate_query: true
+    products:
+      deduplicate_query: true
 ```
 
 this is bringing down the overall latency for the client request
@@ -164,6 +151,26 @@ now let's relax the main rate limiter a bit
 
 first at 700 RPS, then up to 1000 RPS
 
+```yaml
+traffic_shaping:
+  router:
+    timeout: 5s
+    global_rate_limit:
+      capacity: 1000
+      interval: 1s
+  all:
+    timeout: 1s
+    global_rate_limit:
+      capacity: 100
+      interval: 1s
+      deduplicate_query: true
+  subgraphs:
+    reviews:
+      global_rate_limit:
+        capacity: 400
+        interval: 1s
+```
+
 # Step 4: let's take a closer look at traces
 
 We reduced the overall latency, but why are we still seeing a high p90?
@@ -176,7 +183,7 @@ some seem to spend a lot of time in the query planner
 
 the cache misses are all over the place
 
-=> explain the query planner cache
+=> look at the query planner cache
 
 ```yaml
 supergraph:
@@ -189,7 +196,9 @@ supergraph:
 ```
 
 we now see the query planner latency decrease, and p99 request latency decreases
-explain the warmup:
+
+What is query planner warmup:
+
 ```yaml
 supergraph:
   introspection: true
@@ -198,7 +207,7 @@ supergraph:
     warmed_up_queries: 5
 ```
 
-explain the experimental plans:
+Experimental plans limit:
 
 ```yaml
 supergraph:
@@ -215,7 +224,6 @@ what is left now?
 ```yaml
 preview_entity_cache:
   enabled: true
-
   # Configure Redis
   redis:
     urls: ["redis://redis:6379"]
@@ -223,60 +231,6 @@ preview_entity_cache:
     ttl: 10s # Optional, by default no expiration
 
   subgraph:
-    all:
+    product:
       enabled: true
-```
-
-
-```yaml
-
-# preview_demand_control:
-#   enabled: true
-#   mode: measure
-#   strategy:
-#     static_estimated:
-#       list_size: 10 
-#       max: 1000 
-
-preview_entity_cache:
-  enabled: true
-
-  # Configure Redis
-  redis:
-    urls: ["redis://redis:6379"]
-    timeout: 5ms # Optional, by default: 2ms
-    ttl: 24h # Optional, by default no expiration
-
-  subgraph:
-    all:
-      enabled: true
-
-
-traffic_shaping:
-#   all:
-#     experimental_enable_http2: false
-#   subgraphs:
-#     products:
-#       experimental_enable_http2: true
-  router:
-    timeout: 20s
-  all:
-    timeout: 10s
-```
-
-
-```yaml
-telemetry:
-  instrumentation:
-    spans:
-      mode: spec_compliant
-    instruments:
-      cache:
-        apollo.router.operations.entity.cache:
-          attributes:
-            entity.type: true
-            subgraph.name:
-              subgraph_name: true
-            supergraph.operation.name:
-              supergraph_operation_name: string
 ```
