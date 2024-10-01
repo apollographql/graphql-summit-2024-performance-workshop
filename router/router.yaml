@@ -24,8 +24,14 @@ telemetry:
     logging:
       stdout:
         tty_format: json
+        rate_limit:
+          capacity: 1
+          enabled: true
+          interval: 10s
         enabled: true
     tracing:
+      common:
+        sampler: 0.05
       otlp:
         enabled: true
         endpoint: tempo:4317
